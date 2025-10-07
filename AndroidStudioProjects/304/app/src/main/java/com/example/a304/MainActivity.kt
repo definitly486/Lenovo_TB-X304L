@@ -3,11 +3,9 @@ package com.example.a304
 import android.Manifest
 
 import android.app.DownloadManager
-import android.app.PendingIntent
 import androidx.core.content.FileProvider
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
 import android.net.Uri
 
@@ -23,9 +21,8 @@ import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.InputStream
+
 
 
 const val REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1001
@@ -181,7 +178,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun installApp(view: View) {
-        installApk("com.aurora.store_70.apk")
+        installApk("vcore.apk")
+        installApk("NewPipe_nightly-1066.apk")
+        installApk("File+Manager++-Premium-v3.5.4_2103054-Mod.apk")
+        installApk("app_mpv-default-arm64-v8a-release.apk")
+        installApk("ByeByeDPI-arm64-v8a-release.apk")
     }
 }
 
