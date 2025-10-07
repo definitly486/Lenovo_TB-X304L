@@ -168,6 +168,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun downloadntrichromelibrary(view: View) {
+        download("${apkHttpUrl}com.google.android.trichromelibrary_141.0.7390.43-739004331_minAPI29(arm64-v8a,armeabi-v7a)(nodpi)_apkmirror.com.apk")
+
+    }
+
+
     fun downloadApp(view: View) {
         download("${apkHttpUrl}app_mpv-default-arm64-v8a-release.apk")
         download("${apkHttpUrl}ByeByeDPI-arm64-v8a-release.apk")
@@ -176,7 +182,7 @@ class MainActivity : AppCompatActivity() {
         download("${apkHttpUrl}com.aurora.store_70.apk")
         download("${apkHttpUrl}NewPipe_nightly-1066.apk")
         download("${apkHttpUrl}org-gnucash-android-24003-39426726-deeea690953a751a05a1a35017540c33.apk")
-
+        download("${apkHttpUrl}com.android.chrome_141.0.7390.43-739004331_1lang_2feat_e182f1b6bd7ad7d24534108e4e98f9ed_apkmirror.com.apkm")
     }
 
     fun installApp(view: View) {

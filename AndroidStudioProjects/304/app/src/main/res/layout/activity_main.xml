@@ -22,6 +22,14 @@
             tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
 
         <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/download_trichromelibrary"
+            android:onClick="downloadntrichromelibrary" />
+
+
+        <Button
             android:id="@+id/button4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
