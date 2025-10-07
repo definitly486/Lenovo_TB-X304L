@@ -169,7 +169,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun downloadntrichromelibrary(view: View) {
-        download("${apkHttpUrl}com.google.android.trichromelibrary_141.0.7390.43-739004331_minAPI29(arm64-v8a,armeabi-v7a)(nodpi)_apkmirror.com.apk")
+        download("${apkHttpUrl}com.google.android.trichromelibrary_141.0.7390.43-739004331_minAPI29_apkmirror.com.apk")
 
     }
 
