@@ -5,4 +5,7 @@
     <string name="download_ozonjob">Download Ozon Job</string>
     <string name="download_trichromelibrary">Download Trichromelibrary </string>
     <string name="download_sber">Download Sberbank</string>
+    <string name="download_binance">Download Binance</string>
+    <string name="install_binance">Install Binance </string>
+
 </resources>

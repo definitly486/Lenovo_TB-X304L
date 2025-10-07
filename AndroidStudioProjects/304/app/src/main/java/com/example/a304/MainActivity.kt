@@ -1,14 +1,15 @@
 package com.example.a304
 
 import android.Manifest
-
+import android.annotation.SuppressLint
 import android.app.DownloadManager
-import androidx.core.content.FileProvider
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
-
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -17,13 +18,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-
+import androidx.core.content.FileProvider
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
 import java.io.File
-
-
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipInputStream
 
 const val REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1001
 val TAG = "MainActivity"
@@ -47,24 +49,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Проверяем разрешение на запись во внешние хранилища
+     * Проверка и запрос разрешения на запись и чтение внешних данных
      */
     private fun checkWritePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Новое хранилище данных для Android 11 и выше
+            return
+        }
+
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ),
                 WRITE_EXTERNAL_PERMISSION_REQUEST_CODE
             )
         }
     }
-
-
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -74,22 +85,22 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             WRITE_EXTERNAL_PERMISSION_REQUEST_CODE -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    Log.d(TAG, "Разрешение получено!")
+                if ((grantResults.isNotEmpty() &&
+                            grantResults.all { it == PackageManager.PERMISSION_GRANTED })
+                ) {
+                    Log.d(TAG, "Разрешения на запись и чтение предоставлено!")
                 } else {
-                    Log.e(TAG, "Разрешение не дано.")
+                    Log.e(TAG, "Не хватает разрешения на запись и чтение.")
                 }
             }
         }
     }
 
     /**
-     * Скачать файл
-     *
-     * @param url Полный URL файла
+     * Метод для начала загрузки файла
      */
     fun download(url: String) {
-        val folder = File(Environment.getExternalStorageDirectory(), "Download/")
+        val folder = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) ?: return
         if (!folder.exists()) {
             folder.mkdirs()
         }
@@ -104,8 +115,9 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(IO).launch {
             try {
-                withContext(Main) {
-                    Toast.makeText(this@MainActivity, "Начинается загрузка...", Toast.LENGTH_SHORT).show()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, "Начинается загрузка...", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
                 val fileName = url.substringAfterLast('/')
@@ -118,7 +130,8 @@ class MainActivity : AppCompatActivity() {
                 request.setDescription("Загружается...")
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 request.allowScanningByMediaScanner()
-                request.setDestinationInExternalPublicDir(
+                request.setDestinationInExternalFilesDir(
+                    this@MainActivity,
                     Environment.DIRECTORY_DOWNLOADS,
                     fileName
                 )
@@ -126,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                 mydownloadID = downloadManager.enqueue(request)
             } catch (ex: Exception) {
                 ex.printStackTrace()
-                withContext(Main) {
+                withContext(Dispatchers.Main) {
                     Toast.makeText(
                         this@MainActivity,
                         "Ошибка при загрузке: ${ex.message}",
@@ -138,19 +151,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Установить загруженный APK файл
-     *
-     * @param filename Название файла .apk
+     * Устанавливает APK-файлы
      */
     fun installApk(filename: String) {
-        val filePath = Environment.getExternalStorageDirectory().absolutePath + "/Download/$filename"
-        val file = File(filePath)
+        val apkFile = File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), filename)
 
-        if (file.exists()) {
-            val apkUri: Uri = FileProvider.getUriForFile(
-                this, // Use 'this' for Activity context
-                "${applicationContext.packageName}.fileprovider", // Use 'applicationContext.packageName'
-                file
+        if (apkFile.exists()) {
+            val apkUri = FileProvider.getUriForFile(
+                applicationContext,
+                "$packageName.fileprovider",
+                apkFile
             )
 
             val intent = Intent(Intent.ACTION_VIEW).apply {
@@ -163,18 +173,65 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Файл не найден", Toast.LENGTH_SHORT).show()
         }
     }
+
+    /**
+     * Распаковывает ZIP-файл
+     */
+    fun unzip(filename: String): Boolean {
+        val zipFile = File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), filename)
+        val outputFolder = File(getExternalFilesDir(null)?.path!!, "Download")
+        outputFolder.mkdirs()
+        val folder ="binance.base.apk"
+        val lastPart = filename.split("/").last()
+        val file = File(folder, lastPart)
+
+        if (file.exists()) {
+            Toast.makeText(this, "Файл уже существует", Toast.LENGTH_SHORT).show()
+            installApk("binance.base.apk")
+        }
+
+
+        val fis = FileInputStream(zipFile)
+        val zis = ZipInputStream(fis)
+
+        var entry: ZipEntry?
+        while (zis.nextEntry.also { entry = it } != null) {
+            val fileName = entry!!.name
+            val destFile = File(outputFolder, fileName)
+            destFile.parentFile.mkdirs()
+
+            if (!entry.isDirectory) {
+                val fos = FileOutputStream(destFile)
+                val bufferSize = 4096
+                val data = ByteArray(bufferSize)
+                var count: Int
+                while (zis.read(data, 0, bufferSize).also { count = it } != -1) {
+                    fos.write(data, 0, count)
+                }
+                fos.flush()
+                fos.close()
+            }
+            zis.closeEntry()
+        }
+        zis.close()
+        fis.close()
+        return true
+    }
+
+
+    /**
+     * Другие методы для загрузки остальных файлов
+     */
     fun downloadozonjob(view: View) {
         download("${apkHttpUrl}Ozon+Job_1.62.0-GMS-release_apkcombo.com_antisplit.apk")
-
     }
 
     fun downloadntrichromelibrary(view: View) {
         download("${apkHttpUrl}com.google.android.trichromelibrary_141.0.7390.43-739004331_minAPI29_apkmirror.com.apk")
-
     }
+
     fun downloadsber(view: View) {
         download("${apkHttpUrl}SberbankOnline.apk")
-
     }
 
     fun downloadApp(view: View) {
@@ -196,6 +253,40 @@ class MainActivity : AppCompatActivity() {
         installApk("app_mpv-default-arm64-v8a-release.apk")
         installApk("ByeByeDPI-arm64-v8a-release.apk")
     }
+
+    // Приемник уведомлений о завершении загрузки
+    private val downloadCompleteBroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            if (id == mydownloadID) {
+                Toast.makeText(applicationContext, "Загрузка завершена", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(
+            downloadCompleteBroadcastReceiver,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
+    }
+
+    override fun onPause() {
+        unregisterReceiver(downloadCompleteBroadcastReceiver)
+        super.onPause()
+    }
+
+    fun downloadbinance(view: View) {
+        download("${apkHttpUrl}binance.base.zip")
+
+    }
+
+
+    fun installbinance(view: View) {
+        unzip("binance.base.zip")
+        installApk("binance.base.apk")
+    }
+
 }
-
-
