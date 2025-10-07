@@ -22,27 +22,19 @@
             tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
 
         <Button
+            android:id="@+id/button6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/install_app"
+            android:onClick="installApp"
+            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
+
+        <Button
             android:id="@+id/button7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/download_binance"
             android:onClick="downloadbinance"
-            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
-
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/install_sber"
-            android:onClick="installsber"
-            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/download_sber"
-            android:onClick="downloadsber"
             tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
 
 
@@ -53,6 +45,26 @@
             android:text="@string/install_binance"
             android:onClick="installbinance"
             tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
+
+
+     
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/download_sber"
+            android:onClick="downloadsber"
+            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
+
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/install_sber"
+            android:onClick="installsber"
+            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
+
 
         <Button
             android:id="@+id/button3"
@@ -71,13 +83,6 @@
             tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
 
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/install_app"
-            android:onClick="installApp"
-            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
 
     </LinearLayout>
 </ScrollView>
