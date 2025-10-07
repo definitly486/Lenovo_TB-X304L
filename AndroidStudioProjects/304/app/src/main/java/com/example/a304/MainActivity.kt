@@ -172,7 +172,10 @@ class MainActivity : AppCompatActivity() {
         download("${apkHttpUrl}com.google.android.trichromelibrary_141.0.7390.43-739004331_minAPI29_apkmirror.com.apk")
 
     }
+    fun downloadsber(view: View) {
+        download("${apkHttpUrl}SberbankOnline.apk")
 
+    }
 
     fun downloadApp(view: View) {
         download("${apkHttpUrl}app_mpv-default-arm64-v8a-release.apk")
@@ -183,6 +186,7 @@ class MainActivity : AppCompatActivity() {
         download("${apkHttpUrl}NewPipe_nightly-1066.apk")
         download("${apkHttpUrl}org-gnucash-android-24003-39426726-deeea690953a751a05a1a35017540c33.apk")
         download("${apkHttpUrl}com.android.chrome_141.0.7390.43-739004331_1lang_2feat_e182f1b6bd7ad7d24534108e4e98f9ed_apkmirror.com.apkm")
+        download("${apkHttpUrl}sports+2024_1.2_apkcombo.com_antisplit.apk")
     }
 
     fun installApp(view: View) {
