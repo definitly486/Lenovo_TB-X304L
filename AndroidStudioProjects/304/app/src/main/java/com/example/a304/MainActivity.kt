@@ -175,6 +175,8 @@ class MainActivity : AppCompatActivity() {
         download("${apkHttpUrl}vcore.apk")
         download("${apkHttpUrl}com.aurora.store_70.apk")
         download("${apkHttpUrl}NewPipe_nightly-1066.apk")
+        download("${apkHttpUrl}Chrome_141.0.7390.43_apkcombo.com.xapk")
+
     }
 
     fun installApp(view: View) {
