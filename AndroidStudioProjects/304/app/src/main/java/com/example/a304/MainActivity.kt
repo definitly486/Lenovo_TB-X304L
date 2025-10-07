@@ -181,15 +181,15 @@ class MainActivity : AppCompatActivity() {
         val zipFile = File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), filename)
         val outputFolder = File(getExternalFilesDir(null)?.path!!, "Download")
         outputFolder.mkdirs()
-        val folder ="binance.base.apk"
-        val lastPart = filename.split("/").last()
-        val file = File(folder, lastPart)
+        // Создаем объект File для binance.base.apk
+        val filePath = "/storage/emulated/0/Android/data/com.example.a304/files/Download/binance.base.apk"
+        val file = File(filePath)
 
         if (file.exists()) {
             Toast.makeText(this, "Файл уже существует", Toast.LENGTH_SHORT).show()
             installApk("binance.base.apk")
+            return true
         }
-
 
         val fis = FileInputStream(zipFile)
         val zis = ZipInputStream(fis)
@@ -283,10 +283,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun installsber(view: View) {
+
+        installApk("SberbankOnline.apk")
+    }
 
     fun installbinance(view: View) {
+
+        val filePath = "/storage/emulated/0/Android/data/com.example.a304/files/Download/binance.base.zip"
+        val file = File(filePath)
+
+        if (!file.exists()) {
+            Toast.makeText(this, "Файл не существует", Toast.LENGTH_SHORT).show()
+            return
+            
+        }
         unzip("binance.base.zip")
         installApk("binance.base.apk")
     }
 
 }
+
+
