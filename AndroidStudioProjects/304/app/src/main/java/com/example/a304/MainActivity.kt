@@ -164,7 +164,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun downloadozonjob(view: View) {
-        download("${apkHttpUrl}Ozon+Job_1.62.0-GMS-release_apkcombo.com.xapk")
+        download("${apkHttpUrl}Ozon+Job_1.62.0-GMS-release_apkcombo.com_antisplit.apk")
 
     }
 
@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity() {
         download("${apkHttpUrl}vcore.apk")
         download("${apkHttpUrl}com.aurora.store_70.apk")
         download("${apkHttpUrl}NewPipe_nightly-1066.apk")
-        download("${apkHttpUrl}Chrome_141.0.7390.43_apkcombo.com.xapk")
+        download("${apkHttpUrl}org-gnucash-android-24003-39426726-deeea690953a751a05a1a35017540c33.apk")
 
     }
 
