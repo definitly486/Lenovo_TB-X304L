@@ -283,6 +283,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun downloadgate(view: View) {
+        download("${apkHttpUrl}gate.base.zip")
+
+    }
+
+
     fun installsber(view: View) {
 
         installApk("SberbankOnline.apk")
@@ -301,6 +307,21 @@ class MainActivity : AppCompatActivity() {
         unzip("binance.base.zip")
         installApk("binance.base.apk")
     }
+
+    fun installgate(view: View) {
+
+        val filePath = "/storage/emulated/0/Android/data/com.example.a304/files/Download/gate.base.zip"
+        val file = File(filePath)
+
+        if (!file.exists()) {
+            Toast.makeText(this, "Файл не существует", Toast.LENGTH_SHORT).show()
+            return
+
+        }
+        unzip("gate.base.zip")
+        installApk("gate.base.apk")
+    }
+
 
 }
 

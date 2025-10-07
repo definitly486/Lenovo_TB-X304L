@@ -47,7 +47,24 @@
             tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
 
 
-     
+        <Button
+            android:id="@+id/button12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/download_gate"
+            android:onClick="downloadgate"
+            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
+
+
+        <Button
+            android:id="@+id/button13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/install_gate"
+            android:onClick="installgate"
+            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
+
+
 
         <Button
             android:id="@+id/button2"
