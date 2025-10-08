@@ -7,7 +7,7 @@
         android:id="@+id/firstButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Первая вкладка"
+        android:text="Download BusyBox"
         android:layout_gravity="center"/>
 
 </FrameLayout>
