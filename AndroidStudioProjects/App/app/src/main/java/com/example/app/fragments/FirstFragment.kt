@@ -40,6 +40,14 @@ class FirstFragment : Fragment() {
             helper.download("${apkHttpUrl}busybox")
 
         }
+        val installbutton = view.findViewById<Button>(R.id.installButton)
+        installbutton.setOnClickListener {
+
+            val helper = DownloadHelper(requireContext())
+            helper.installbusybox()
+
+        }
+
         return view
     }
 }
@@ -52,6 +60,17 @@ class FirstFragment : Fragment() {
         fun getDownloadFolder(): File? {
             return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
         }
+
+        fun installbusybox(){
+
+            Runtime.getRuntime().exec("su - root -c mount -o rw,remount /system")
+            Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Download/curl_openssl/* /system/bin")
+            Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/curl")
+            Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/openssl")
+            Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/busybox")
+        }
+
+
 
         fun download(url: String) {
             val folder = getDownloadFolder() ?: return

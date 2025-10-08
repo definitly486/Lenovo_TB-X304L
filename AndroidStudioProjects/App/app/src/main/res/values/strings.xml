@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">App</string>
+    <string name="download_busybox">Download BusyBox</string>
+    <string name="install_busybox">Install BusyBox</string>
 </resources>
