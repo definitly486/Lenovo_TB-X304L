@@ -63,11 +63,10 @@ class FirstFragment : Fragment() {
 
         fun installbusybox(){
 
-            Runtime.getRuntime().exec("su - root -c mount -o rw,remount /system")
-            Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Download/curl_openssl/* /system/bin")
-            Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/curl")
-            Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/openssl")
-            Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/busybox")
+            Runtime.getRuntime().exec("su - root -c mount -o rw,remount /sbin")
+            Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Android/data/com.example.app/files/Download/busybox /sbin")
+            Runtime.getRuntime().exec("su - root -c chmod +x  /sbin/busybox")
+            Runtime.getRuntime().exec("su - root -c chmod 0755  /sbin/busybox")
         }
 
 
