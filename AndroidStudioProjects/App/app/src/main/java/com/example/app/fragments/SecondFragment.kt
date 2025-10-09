@@ -30,6 +30,7 @@ class SecondFragment : Fragment() {
             helper.download("${apkHttpUrl}sports+2024_1.2_apkcombo.com_antisplit.apk")
             helper.download("${apkHttpUrl}Hacker_v1.41.1.apk")
             helper.download("${apkHttpUrl}terminal.apk")
+            helper.download("${apkHttpUrl}Magisk-v25.2.apk")
         }
         val button6 = view.findViewById<Button>(R.id.button6)
         button6.setOnClickListener {
@@ -57,6 +58,18 @@ class SecondFragment : Fragment() {
         button4.setOnClickListener {
             val helper = DownloadHelper(requireContext())
             helper.download("${apkHttpUrl}Ozon+Job_1.62.0-GMS-release_apkcombo.com_antisplit.apk")
+        }
+
+        val button3 = view.findViewById<Button>(R.id.button3)
+        button3.setOnClickListener {
+            val helper = DownloadHelper(requireContext())
+            helper.download("${apkHttpUrl}com.google.android.trichromelibrary_141.0.7390.43-739004331_minAPI29_apkmirror.com.apk")
+        }
+
+        val button12 = view.findViewById<Button>(R.id.button12)
+        button12.setOnClickListener {
+            val helper = DownloadHelper(requireContext())
+            helper.download("${apkHttpUrl}gate.base.zip")
         }
 
         return view
