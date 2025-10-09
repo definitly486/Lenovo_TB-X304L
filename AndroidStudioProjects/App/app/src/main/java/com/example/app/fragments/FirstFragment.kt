@@ -28,6 +28,10 @@ import java.util.zip.ZipInputStream
 
 class FirstFragment : Fragment() {
 
+
+    fun getDownloadFolder(): File? {
+        return context?.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+    }
     var apkHttpUrl = "https://github.com/definitly486/Lenovo_TB-X304L/releases/download/busybox/"
     var apkHttpUrl2 = "https://github.com/definitly486/Lenovo_TB-X304L/releases/download/openssl/"
 
@@ -43,6 +47,14 @@ class FirstFragment : Fragment() {
         val installbutton = view.findViewById<Button>(R.id.installButton)
         installbutton.setOnClickListener {
 
+            val folder = getDownloadFolder() ?: return@setOnClickListener
+            val file = File(folder, "busybox")
+
+            if (!file.exists()) {
+                Toast.makeText(requireContext(), "Файл  busybox не существует", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val helper = DownloadHelper(requireContext())
             helper.installbusybox()
         }
@@ -54,6 +66,14 @@ class FirstFragment : Fragment() {
         }
         val  installopenssl = view.findViewById<Button>(R.id.installopenssl)
         installopenssl.setOnClickListener {
+
+            val folder = getDownloadFolder() ?: return@setOnClickListener
+            val file = File(folder, "openssl")
+
+            if (!file.exists()) {
+                Toast.makeText(requireContext(), "Файл  openssl не существует", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             val helper = DownloadHelper(requireContext())
             helper.installopenssl()
