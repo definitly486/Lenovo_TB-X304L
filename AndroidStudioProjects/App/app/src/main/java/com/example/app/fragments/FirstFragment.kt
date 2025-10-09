@@ -29,7 +29,7 @@ import java.util.zip.ZipInputStream
 class FirstFragment : Fragment() {
 
     var apkHttpUrl = "https://github.com/definitly486/Lenovo_TB-X304L/releases/download/busybox/"
-
+    var apkHttpUrl2 = "https://github.com/definitly486/Lenovo_TB-X304L/releases/download/openssl/"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_first, container, false)
@@ -45,7 +45,18 @@ class FirstFragment : Fragment() {
 
             val helper = DownloadHelper(requireContext())
             helper.installbusybox()
+        }
+        val  downloadopenssl = view.findViewById<Button>(R.id.downloadopenssl)
+        downloadopenssl.setOnClickListener {
 
+            val helper = DownloadHelper(requireContext())
+            helper.download("${apkHttpUrl2}openssl")
+        }
+        val  installopenssl = view.findViewById<Button>(R.id.installopenssl)
+        installopenssl.setOnClickListener {
+
+            val helper = DownloadHelper(requireContext())
+            helper.installopenssl()
         }
 
         return view
@@ -71,6 +82,16 @@ class FirstFragment : Fragment() {
             Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Android/data/com.example.app/files/Download/busybox.sh /system/bin/busybox")
             Runtime.getRuntime().exec("su - root -c chmod +x  /system/bin/busybox")
             Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/busybox")
+        }
+
+        fun installopenssl(){
+
+            Toast.makeText(context, "Начинается установка openssl...", Toast.LENGTH_SHORT).show()
+            Runtime.getRuntime().exec("su - root -c mount -o rw,remount /")
+            Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Android/data/com.example.app/files/Download/openssl /system/bin/")
+            Runtime.getRuntime().exec("su - root -c chmod +x  /system/bin/openssl")
+            Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/openssl")
+
         }
 
 
