@@ -40,6 +40,19 @@ class SecondFragment : Fragment() {
             helper.installApk("app_mpv-default-arm64-v8a-release.apk")
             helper.installApk("ByeByeDPI-arm64-v8a-release.apk")
         }
+
+        val button7 = view.findViewById<Button>(R.id.button7)
+        button7.setOnClickListener {
+            val helper = DownloadHelper(requireContext())
+            helper.download("${apkHttpUrl}binance.base.zip")
+        }
+
+        val button2 = view.findViewById<Button>(R.id.button2)
+        button2.setOnClickListener {
+            val helper = DownloadHelper(requireContext())
+            helper.download("${apkHttpUrl}SberbankOnline.apk")
+        }
+
         return view
     }
 }
