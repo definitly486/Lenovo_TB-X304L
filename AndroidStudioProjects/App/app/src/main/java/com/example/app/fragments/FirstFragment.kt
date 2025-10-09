@@ -28,7 +28,7 @@ import java.util.zip.ZipInputStream
 
 class FirstFragment : Fragment() {
 
-    var apkHttpUrl = "https://github.com/definitly486/Lenovo_Tab_3_7_TB3-730X/releases/download/curl_openssl/"
+    var apkHttpUrl = "https://github.com/definitly486/Lenovo_TB-X304L/releases/download/busybox/"
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

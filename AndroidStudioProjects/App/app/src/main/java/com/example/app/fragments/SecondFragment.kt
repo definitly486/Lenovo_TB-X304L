@@ -66,6 +66,13 @@ class SecondFragment : Fragment() {
             helper.download("${apkHttpUrl}com.google.android.trichromelibrary_141.0.7390.43-739004331_minAPI29_apkmirror.com.apk")
         }
 
+        val button14 = view.findViewById<Button>(R.id.button14)
+        button14.setOnClickListener {
+            val helper = DownloadHelper(requireContext())
+            helper.installApk("com.google.android.trichromelibrary_141.0.7390.43-739004331_minAPI29_apkmirror.com.apk")
+        }
+
+
         val button12 = view.findViewById<Button>(R.id.button12)
         button12.setOnClickListener {
             val helper = DownloadHelper(requireContext())
