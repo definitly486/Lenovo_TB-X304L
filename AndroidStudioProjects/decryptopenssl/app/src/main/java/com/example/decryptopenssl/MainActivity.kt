@@ -215,7 +215,7 @@ class MainActivity : AppCompatActivity() {
             "-d",
             "-e",
             "-iter",
-            "10000" ,
+            "100000" ,
             "-pbkdf2",
             "-aes-256-cbc",                     // Алгоритм шифрования
             "-in", filePath,
