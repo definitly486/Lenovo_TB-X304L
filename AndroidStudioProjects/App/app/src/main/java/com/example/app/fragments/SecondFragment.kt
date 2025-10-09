@@ -41,6 +41,7 @@ class SecondFragment : Fragment() {
             helper.download("${apkHttpUrl}Hacker_v1.41.1.apk")
             helper.download("${apkHttpUrl}terminal.apk")
             helper.download("${apkHttpUrl}Magisk-v25.2.apk")
+            helper.download("${apkHttpUrl}magisk-tb8054-remount-v17.1.zip")
         }
         val button6 = view.findViewById<Button>(R.id.button6)
         button6.setOnClickListener {
@@ -57,7 +58,7 @@ class SecondFragment : Fragment() {
         val button7 = view.findViewById<Button>(R.id.button7)
         button7.setOnClickListener {
             val helper = DownloadHelper(requireContext())
-            helper.download("${apkHttpUrl}https://github.com/definitly486/Lenovo_TB-X304L/releases/download/apk/Binance_.BTC.Crypto.and.NFTS_3.4.3_APKPure.xapk")
+            helper.download("${apkHttpUrl}Binance_.BTC.Crypto.and.NFTS_3.4.3_APKPure.xapk")
         }
 
 
@@ -79,6 +80,12 @@ class SecondFragment : Fragment() {
         button4.setOnClickListener {
             val helper = DownloadHelper(requireContext())
             helper.download("${apkHttpUrl}Ozon+Job_1.62.0-GMS-release_apkcombo.com_antisplit.apk")
+        }
+
+        val button15 = view.findViewById<Button>(R.id.button15)
+        button15.setOnClickListener {
+            val helper = DownloadHelper(requireContext())
+            helper.installApk("Ozon+Job_1.62.0-GMS-release_apkcombo.com_antisplit.apk")
         }
 
         val button3 = view.findViewById<Button>(R.id.button3)
