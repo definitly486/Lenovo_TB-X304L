@@ -53,6 +53,12 @@ class SecondFragment : Fragment() {
             helper.download("${apkHttpUrl}SberbankOnline.apk")
         }
 
+        val button4 = view.findViewById<Button>(R.id.button4)
+        button4.setOnClickListener {
+            val helper = DownloadHelper(requireContext())
+            helper.download("${apkHttpUrl}Ozon+Job_1.62.0-GMS-release_apkcombo.com_antisplit.apk")
+        }
+
         return view
     }
 }
