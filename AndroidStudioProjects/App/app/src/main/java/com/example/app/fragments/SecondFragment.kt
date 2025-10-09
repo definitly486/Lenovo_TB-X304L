@@ -50,6 +50,8 @@ class SecondFragment : Fragment() {
             helper.installApk("File+Manager++-Premium-v3.5.4_2103054-Mod.apk")
             helper.installApk("app_mpv-default-arm64-v8a-release.apk")
             helper.installApk("ByeByeDPI-arm64-v8a-release.apk")
+            helper.installApk("terminal.apk")
+            helper.installApk("Hacker_v1.41.1.apk")
         }
 
         val button7 = view.findViewById<Button>(R.id.button7)
