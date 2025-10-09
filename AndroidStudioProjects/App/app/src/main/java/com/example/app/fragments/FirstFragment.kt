@@ -38,7 +38,7 @@ class FirstFragment : Fragment() {
 
             val helper = DownloadHelper(requireContext())
             helper.download("${apkHttpUrl}busybox")
-
+            helper.download("${apkHttpUrl}busybox.sh")
         }
         val installbutton = view.findViewById<Button>(R.id.installButton)
         installbutton.setOnClickListener {
@@ -62,11 +62,14 @@ class FirstFragment : Fragment() {
         }
 
         fun installbusybox(){
-
-            Runtime.getRuntime().exec("su - root -c mount -o rw,remount /sbin")
-            Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Android/data/com.example.app/files/Download/busybox /sbin")
-            Runtime.getRuntime().exec("su - root -c chmod +x  /sbin/busybox")
-            Runtime.getRuntime().exec("su - root -c chmod 0755  /sbin/busybox")
+            Runtime.getRuntime().exec("su - root -c setenforce 0")
+            Runtime.getRuntime().exec("su - root -c mount -o rw,remount /")
+            Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Android/data/com.example.app/files/Download/busybox /system/bin/busybox2")
+            Runtime.getRuntime().exec("su - root -c chmod +x  /system/bin/busybox2")
+            Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/busybox2")
+            Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Android/data/com.example.app/files/Download/busybox.sh /system/bin/busybox")
+            Runtime.getRuntime().exec("su - root -c chmod +x  /system/bin/busybox")
+            Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/busybox")
         }
 
 
