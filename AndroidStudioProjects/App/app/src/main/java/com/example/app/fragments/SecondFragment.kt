@@ -1,13 +1,14 @@
 package com.example.app.fragments
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.app.R
+import java.io.File
 
 class SecondFragment : Fragment() {
 
@@ -45,8 +46,17 @@ class SecondFragment : Fragment() {
         val button7 = view.findViewById<Button>(R.id.button7)
         button7.setOnClickListener {
             val helper = DownloadHelper(requireContext())
-            helper.download("${apkHttpUrl}binance.base.zip")
+            helper.download("${apkHttpUrl}https://github.com/definitly486/Lenovo_TB-X304L/releases/download/apk/Binance_.BTC.Crypto.and.NFTS_3.4.3_APKPure.xapk")
         }
+
+
+        val button8 = view.findViewById<Button>(R.id.button8)
+        button8.setOnClickListener {
+            val helper = DownloadHelper(requireContext())
+
+            helper.installApk("Binance_.BTC.Crypto.and.NFTS_3.4.3_APKPure.xapk")
+        }
+
 
         val button2 = view.findViewById<Button>(R.id.button2)
         button2.setOnClickListener {
@@ -77,6 +87,21 @@ class SecondFragment : Fragment() {
         button12.setOnClickListener {
             val helper = DownloadHelper(requireContext())
             helper.download("${apkHttpUrl}gate.base.zip")
+        }
+
+        val button13 = view.findViewById<Button>(R.id.button13)
+        button13.setOnClickListener {
+            val helper = DownloadHelper(requireContext())
+            val filePath = "/storage/emulated/0/Android/data/com.example.app/files/Download/gate.base.zip"
+            val file = File(filePath)
+
+            if (!file.exists()) {
+                Toast.makeText(requireContext(), "Файл не существует", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            helper.unzip("gate.base.zip")
+            helper.installApk("gate.base.apk")
         }
 
         val button10 = view.findViewById<Button>(R.id.button10)
