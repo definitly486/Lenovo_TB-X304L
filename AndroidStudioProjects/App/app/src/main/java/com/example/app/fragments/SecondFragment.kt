@@ -1,19 +1,28 @@
 package com.example.app.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.example.app.R
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipInputStream
 
 class SecondFragment : Fragment() {
 
     var apkHttpUrl = "https://github.com/definitly486/Lenovo_TB-X304L/releases/download/apk/"
-
+    fun getDownloadFolder(): File? {
+        return context?.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_second, container, false)
@@ -100,8 +109,8 @@ class SecondFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            helper.unzip("gate.base.zip")
-            helper.installApk("gate.base.apk")
+            unzip_gate("gate.base.zip")
+            install_gate("gate.base.apk")
         }
 
         val button10 = view.findViewById<Button>(R.id.button10)
@@ -113,4 +122,66 @@ class SecondFragment : Fragment() {
 
         return view
     }
+    fun install_gate(filename: String) {
+        val folder = getDownloadFolder() ?: return
+        val apkFile = File(folder, filename)
+        if (apkFile.exists()) {
+            val context = this.context ?: return  // Проверка на null
+            val apkUri = FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.fileprovider",
+                apkFile
+            )
+
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(apkUri, "application/vnd.android.package-archive")
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            context.startActivity(intent)
+        } else {
+            Toast.makeText(context, "Файл не найден", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun unzip_gate(filename: String): Boolean {
+        val folder = getDownloadFolder() ?: return false
+        val zipFile = File(folder, filename)
+
+
+        // Check if target APK already exists
+        val targetApk = File(folder, "gate.base.apk")
+        if (targetApk.exists()) {
+            Toast.makeText(context, "Файл gate.base.apk  уже существует", Toast.LENGTH_SHORT).show()
+
+            return true
+        }
+
+        try {
+            FileInputStream(zipFile).use { fis ->
+                ZipInputStream(fis).use { zis ->
+                    var entry: ZipEntry?
+                    while (zis.nextEntry.also { entry = it } != null) {
+                        val destFile = File(folder, entry!!.name)
+                        destFile.parentFile?.mkdirs()
+                        if (!entry!!.isDirectory) {
+                            FileOutputStream(destFile).use { fos ->
+                                val buffer = ByteArray(4096)
+                                var count: Int
+                                while (zis.read(buffer).also { count = it } != -1) {
+                                    fos.write(buffer, 0, count)
+                                }
+                            }
+                        }
+                        zis.closeEntry()
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+        return true
+    }
+
 }

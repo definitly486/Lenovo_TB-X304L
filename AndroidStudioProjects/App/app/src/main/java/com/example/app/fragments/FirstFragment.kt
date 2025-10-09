@@ -137,14 +137,14 @@ class FirstFragment : Fragment() {
         fun unzip(filename: String): Boolean {
             val folder = getDownloadFolder() ?: return false
             val zipFile = File(folder, filename)
-            val outputFolder = File(folder, "Download")
+            val outputFolder = File(folder, "")
             outputFolder.mkdirs()
 
             // Check if target APK already exists
-            val targetApk = File(outputFolder, "binance.base.apk")
+            val targetApk = File(outputFolder, filename)
             if (targetApk.exists()) {
                 Toast.makeText(context, "Файл уже существует", Toast.LENGTH_SHORT).show()
-                installApk("binance.base.apk")
+                installApk(filename)
                 return true
             }
 
