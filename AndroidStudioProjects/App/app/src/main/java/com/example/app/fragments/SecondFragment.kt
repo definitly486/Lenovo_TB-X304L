@@ -43,6 +43,7 @@ class SecondFragment : Fragment() {
             helper.download("${apkHttpUrl}Magisk-v25.2.apk")
             helper.download("${apkHttpUrl}magisk-tb8054-remount-v17.1.zip")
             helper.download("${apkHttpUrl}magisk-remount.zip")
+            helper.download("${apkHttpUrl}org.sufficientlysecure.keychain_60200.apk")
         }
         val button6 = view.findViewById<Button>(R.id.button6)
         button6.setOnClickListener {
@@ -54,6 +55,7 @@ class SecondFragment : Fragment() {
             helper.installApk("ByeByeDPI-arm64-v8a-release.apk")
             helper.installApk("terminal.apk")
             helper.installApk("Hacker_v1.41.1.apk")
+            helper.installApk("org.sufficientlysecure.keychain_60200.apk")
         }
 
         val button7 = view.findViewById<Button>(R.id.button7)
