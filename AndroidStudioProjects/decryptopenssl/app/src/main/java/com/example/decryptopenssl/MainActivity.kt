@@ -207,7 +207,7 @@ class MainActivity : AppCompatActivity() {
         // Далее выполняйте
         val outputFile="/storage/emulated/0/Android/data/com.example.decryptopenssl/files/Download/new.txt"
       //  val outputFile= File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "decrypted_file.txt")
-        val password = String    // Ваш пароль
+        val password =  password   // Ваш пароль
         // Команда для расшифровки файла с помощью OpenSSL
         val command = listOf(
             "openssl",
@@ -215,7 +215,7 @@ class MainActivity : AppCompatActivity() {
             "-d",
             "-e",
             "-iter",
-            "100000" ,
+            "100000",
             "-pbkdf2",
             "-aes-256-cbc",                     // Алгоритм шифрования
             "-in", filePath,
