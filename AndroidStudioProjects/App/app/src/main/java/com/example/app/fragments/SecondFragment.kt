@@ -72,6 +72,13 @@ class SecondFragment : Fragment() {
             helper.download("${apkHttpUrl}gate.base.zip")
         }
 
+        val button10 = view.findViewById<Button>(R.id.button10)
+        button10.setOnClickListener {
+            val helper = DownloadHelper(requireContext())
+            helper.installApk("SberbankOnline.apk")
+        }
+
+
         return view
     }
 }
