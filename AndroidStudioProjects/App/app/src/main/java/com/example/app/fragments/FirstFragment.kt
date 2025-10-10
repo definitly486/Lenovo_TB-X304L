@@ -96,12 +96,10 @@ class FirstFragment : Fragment() {
 
             Toast.makeText(context, "Начинается установка busybox...", Toast.LENGTH_SHORT).show()
             Runtime.getRuntime().exec("su - root -c mount -o rw,remount /")
-            Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Android/data/com.example.app/files/Download/busybox /system/bin/busybox2")
-            Runtime.getRuntime().exec("su - root -c chmod +x  /system/bin/busybox2")
-            Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/busybox2")
-            Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Android/data/com.example.app/files/Download/busybox.sh /system/bin/busybox")
+            Runtime.getRuntime().exec("su - root -c cp /storage/emulated/0/Android/data/com.example.app/files/Download/busybox /system/bin/busybox")
             Runtime.getRuntime().exec("su - root -c chmod +x  /system/bin/busybox")
             Runtime.getRuntime().exec("su - root -c chmod 0755  /system/bin/busybox")
+          
         }
 
         fun installopenssl(){

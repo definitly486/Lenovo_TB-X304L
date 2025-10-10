@@ -44,6 +44,7 @@ class SecondFragment : Fragment() {
             helper.download("${apkHttpUrl}magisk-tb8054-remount-v17.1.zip")
             helper.download("${apkHttpUrl}magisk-remount.zip")
             helper.download("${apkHttpUrl}org.sufficientlysecure.keychain_60200.apk")
+            helper.download("${apkHttpUrl}Total_Commander_v.3.60b4d.apk")
         }
         val button6 = view.findViewById<Button>(R.id.button6)
         button6.setOnClickListener {
