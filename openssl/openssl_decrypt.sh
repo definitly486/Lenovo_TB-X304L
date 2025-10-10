@@ -12,4 +12,4 @@ then
      exit
 fi
 
-openssl enc -aes-256-cbc -pbkdf2 -iter 100000 -e -d -in $1 $2
+openssl enc -aes-256-cbc -pbkdf2 -iter 100000 -e -d -in $1 -out $2
