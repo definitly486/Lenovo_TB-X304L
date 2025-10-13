@@ -60,6 +60,15 @@ class MainActivity : AppCompatActivity() {
             uri?.let { updateSelectedFileInfo(it) }
         }
 
+
+
+
+        val folder = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) ?: return
+        if (!folder.exists()) {
+            folder.mkdirs()
+        }
+
+
         binding.buttonSelectFile.setOnClickListener {
             if (isStoragePermissionGranted()) {
                 selectFileLauncher.launch(arrayOf("*/*"))
@@ -213,7 +222,6 @@ class MainActivity : AppCompatActivity() {
             "openssl",
             "enc",
             "-d",
-            "-e",
             "-iter",
             "100000",
             "-pbkdf2",
