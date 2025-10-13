@@ -14,6 +14,6 @@ fi
 
 
 openssl enc -aes-256-cbc -pbkdf2 -iter 100000 -e  -d  -in gh.tar.xz.enc  -out gh.tar.xz -pass pass:$1
-tar xf  gh.tar.xz
+busybox tar xf  gh.tar.xz
 mkdir -p $HOME/.config
 cp -r gh $HOME/.config
