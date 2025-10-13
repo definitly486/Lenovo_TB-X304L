@@ -35,6 +35,28 @@
             android:text="Unpack Lenovo_TB-X304L main.tar.gz"
             tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
 
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Download GH"
+            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unpack GH"
+            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
+
+
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Install GH"
+            tools:ignore="UsingOnClickInXml,VisualLintButtonSize" />
+
 
     </LinearLayout>
 </FrameLayout>

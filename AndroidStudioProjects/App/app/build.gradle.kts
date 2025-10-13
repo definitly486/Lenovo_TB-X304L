@@ -39,6 +39,7 @@ dependencies {
 implementation ("com.google.android.material:material:1.13.0")
     implementation ("androidx.viewpager2:viewpager2:1.1.0")
     implementation("org.apache.commons:commons-compress:1.28.0")
+    implementation("org.tukaani:xz:1.9")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
